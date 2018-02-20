@@ -2,7 +2,7 @@
 
     class Event
     {
-
+        // TODO: create base event and sub-classes
     }
 
     class State

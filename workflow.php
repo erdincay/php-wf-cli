@@ -1,12 +1,12 @@
 <?php
 
    /*
-    * projectname:  sclable workflow php cli 
-	* author:       erdincay
-	* created on:   2018-02-18
-	* filename:     workflow.php
-	*
-	* comments:     demonstrational workflow processing cli client
+    * projectname:  command-line and workflow-based issue-management tool
+    * author:       erdincay
+    * created on:   2018-02-18
+    * filename:     workflow.php
+    *
+    * comments:     demonstrational workflow processing cli client
     */
 
     declare(strict_types=1);

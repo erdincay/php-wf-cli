@@ -24,7 +24,7 @@
     $validCommands[] = 'exit';
 
     echo PHP_EOL;
-    echo "WELCOME TO THE WORKFLOW-BASED ISSUE-MANAGEMENT CLI CLIENT" . PHP_EOL;
+    echo "WELCOME TO THE WORKFLOW-BASED ISSUE-MANAGEMENT CLI" . PHP_EOL;
     echo PHP_EOL;
 
     $commands = implode(" | ", $validCommands);
