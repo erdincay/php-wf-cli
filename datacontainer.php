@@ -2,7 +2,7 @@
 
     class Event
     {
-        
+
     }
 
     class State
@@ -98,6 +98,11 @@
             return $this->todo; 
         }
 
+        public function getState()
+        {
+            return $this->state;
+        }
+
         public function isValid()
         {
             if (!empty($this->todo) && !empty($this->state) && ($this->state)->isValid())
@@ -184,6 +189,7 @@
                 $stateB = $this->states[$i];
 
                 // TODO: object comparison ? 
+
                 if (strcmp($stateA->getStateName(), $stateB->getStateName()) == 0
                     && ($stateA->getOrderID() == $stateB->getOrderID()))
                 {
@@ -252,15 +258,6 @@
         }
 
         // END ---------- States ----------------------
-
-        // BEGIN -------- Events ----------------------
-
-        public function processEvent(Event $event)
-        {
-            // TODO: write processing logic 
-        }
-
-        // END ---------- Events ----------------------
 
         // BEGIN -------- Transitions -----------------
 
@@ -428,6 +425,42 @@
 
         // END ---------- Issues ----------------------
 
+        // BEGIN -------- Events ----------------------
+
+        public function processEvent(Event $event)
+        {
+            // TODO: write processing logic for state/transition/issue changes
+        }
+
+        // END ---------- Events ----------------------
+        
+        // BEGIN -------- Data ------------------------
+
+        public function processData()
+        {
+            $this->sortStates();
+            $this->sortIssues();
+
+            $output = '';
+            for ($i = 0; $i < $this->countStates(); $i++)
+            {
+                $state = $this->states[$i];
+                $output .= $state->toString() . PHP_EOL; 
+
+                for ($k = 0; $k < $this->countIssues(); $k++)
+                {
+                    $issue = $this->issues[$k];
+                    if (($issue->getState())->getStateName() == $state->getStateName())
+                    {
+                        $output .= ' - ' . '(' . $k . ') ' . $issue->getTodo() . PHP_EOL; 
+                    }
+                }
+            }
+
+            return $output;
+        }
+
+        // END ---------- Data ------------------------
     }
 
 ?>

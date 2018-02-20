@@ -24,8 +24,9 @@
     // TODO: upgrade to auto-loader by using psr4 auto-loading feature 
     require_once('initializer.php');
     require_once('datacontainer.php');
-    require_once('demodata.php');
+    require_once('demodata.php');    
 
+    // TODO: PEAR ?
     $data = new DataContainer();
 
     do {
@@ -38,8 +39,11 @@
                 initializeDataContainer($data); 
                 break;
             case 'show data':
+                echo 'data:' . PHP_EOL . PHP_EOL;
+                $outputX = $data->processData();
+                echo $outputX . PHP_EOL;
                 break;
-            case 'clear data':           
+            case 'clear data':
                 unset($data);
                 $data = new DataContainer();
                 break; 

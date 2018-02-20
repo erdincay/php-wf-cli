@@ -2,7 +2,8 @@
 
     function shutdown()
     {
-        echo "PFIAT DI!" . PHP_EOL;   
+        // TODO: persist data 
+        echo PHP_EOL . "PFIAT DI!" . PHP_EOL;
     }
 
     register_shutdown_function('shutdown');

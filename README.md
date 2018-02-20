@@ -14,4 +14,14 @@ command-line and workflow-based issue-management tool
 
 > output current (data) status
 
+> missing! event signaling and processing
+
+> missing! database persistence 
+
+usage:
+
+php workflow.php
+init data
+show data 
+
 ![lgplv3](./lgplv3.png)
