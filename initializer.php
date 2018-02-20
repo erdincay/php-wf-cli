@@ -8,11 +8,21 @@
     register_shutdown_function('shutdown');
 
     $validCommands = array();
-    $validCommands[] = 'init';
-    $validCommands[] = 'show';
-    $validCommands[] = 'sort';
-    $validCommands[] = 'group';
+    $validCommands[] = 'init data';
+    $validCommands[] = 'show data';
+    $validCommands[] = 'show issues';
+    $validCommands[] = 'show states';
+    $validCommands[] = 'show transitions';
+    $validCommands[] = 'test state add';
     $validCommands[] = 'exit';
+
+    echo PHP_EOL;
+    echo "WELCOME TO THE DEMONSTRATIONAL WORKFLOW PROCESSING CLI CLIENT" . PHP_EOL;
+    echo PHP_EOL;
+
+    $commands = implode(" | ", $validCommands);
+    echo "commands: " . $commands . PHP_EOL;
+    echo PHP_EOL;
 
     function tab_complete ($partial) {
         global $validCommands;
