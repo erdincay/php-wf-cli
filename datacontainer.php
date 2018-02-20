@@ -142,7 +142,7 @@
 
         public function sortStates()
         {
-            uasort($this->states, array($this, 'sorterS'));
+            usort($this->states, array($this, 'sorterS'));
         }
 
         public function sorterS(State $stateA, State $stateB)
