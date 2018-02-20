@@ -29,13 +29,21 @@
         $data->addTransition($transition5);
         $data->addTransition($transition6);
 
-        // $issue1 = new Issue();
-        // $issue2 = new Issue();
-        // $issue3 = new Issue();
-        // $issue4 = new Issue();
-        // $issue5 = new Issue();
-        // $issue6 = new Issue();
+        $issue1 = $data->createIssue('get new coffee machine', $state4);
+        $issue2 = $data->createIssue('(re)fill beans', $state3);
+        $issue3 = $data->createIssue('fill water tank', $state1);
+        $issue4 = $data->createIssue('make coffee', $state2);
+        $issue5 = $data->createIssue('make more coffee', $state1);
+        $issue6 = $data->createIssue('turn old coffee machine off and on again', $state5);
+        $issue7 = $data->createIssue('repair old coffee machine', $state5);
 
+        $data->addIssue($issue1);
+        $data->addIssue($issue2);
+        $data->addIssue($issue3);
+        $data->addIssue($issue4);
+        $data->addIssue($issue5);
+        $data->addIssue($issue6);
+        $data->addIssue($issue7);
     }
 
 ?>

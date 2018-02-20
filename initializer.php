@@ -16,6 +16,7 @@
     $validCommands[] = 'show transitions';    
     $validCommands[] = 'test state add';
     $validCommands[] = 'test transition add';
+    $validCommands[] = 'test issue add';
     $validCommands[] = 'exit';
 
     echo PHP_EOL;

@@ -10,14 +10,14 @@
     */
 
     declare(strict_types=1);
-    set_time_limit(0);    
+    set_time_limit(0);
 
     define('ERROR_CODE_OK', 0); // success, exiting without errors 
     define('ERROR_CODE_GE', 1); // general error
     define('ERROR_CODE_IU', 2); // incorrect/inproper usage
     define('SLEEP_TIME_MS', 9); // sleep time in miliseconds 
 
-    // TODO: PHP CLI SAPI (?)    
+    // TODO: PHP CLI SAPI (?)
     $RUNNING = TRUE;
     $LASTERR = ERROR_CODE_GE;
 
@@ -45,7 +45,7 @@
                 break; 
             case 'show issues':
                 echo 'issues:' . PHP_EOL . PHP_EOL;
-                $outputX = ''; // $data->printIssues();
+                $outputX = $data->printIssues();
                 echo $outputX . PHP_EOL;
                 break;
             case 'show states':
@@ -73,6 +73,23 @@
                 }
                 break;
             case 'test transition add':
+                try
+                {
+                    $stateX = $data->createState('teststate' . rand(1,100), rand(1,100));
+                    $data->addState($stateX);
+                    $stateY = $data->createState('teststate' . rand(1,100), rand(1,100));
+                    $data->addState($stateY);
+                    
+                    $transitionX = $data->createTransition($stateX, $stateY);
+                    $data->addTransition($transitionX);
+                }
+                catch (Exception $e)
+                {
+                    echo 'while processing an error occurred' . PHP_EOL; 
+                    echo 'see details for more information: ' . $e->getMessage() . PHP_EOL; 
+                }
+                break;
+            case 'test issue add':
                 try
                 {
 

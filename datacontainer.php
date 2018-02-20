@@ -102,6 +102,20 @@
             $this->state = $state;
         }
 
+        public function getTodo()
+        {
+            return $this->todo; 
+        }
+
+        public function isValid()
+        {
+            if (!empty($this->todo) && !empty($this->state) && ($this->state)->isValid())
+            {
+                return true; 
+            }
+            return false; 
+        }
+
         public function toString()
         {
             return '' . $this->todo . ' | ' . ($this->state)->toString();
@@ -274,12 +288,12 @@
 
             $transition = new Transition($source, $destination);
 
-            if ($transition->isValid())
+            if (!$transition->isValid())
             {
-                return $transition;
+                throw new Exception('transition state constellation is invalid'); 
             }
             
-            return null;
+            return $transition;
         }
 
         public function addTransition(Transition $transition)
@@ -331,9 +345,94 @@
 
         // BEGIN -------- Issues ----------------------
 
+        public function countIssues()
+        {
+            return count($this->issues);
+        }
+
+        public function createIssue(string $todo, State $state)
+        {
+            if (empty($todo) || empty($state) || !($state->isValid()))
+            {
+                throw new Exception('issue parameters are invalid');
+            }
+
+            $found = false;
+            foreach ($this->states as &$s)
+            {
+                if ($this->compareS($state,$s))
+                {
+                    $found = true; 
+                }
+            }
+
+            if (!$found)
+            {
+                throw new Exception('issue state is not in valid states list'); 
+            }
+
+            $issue = new Issue($todo, $state);            
+            return $issue; 
+        }
+
+        public function addIssue(Issue $issue)
+        {
+            if (empty($issue) || !($issue->isValid()))
+            {
+                throw new Exception('issue is invalid');
+            }
+
+            $found = false;
+            foreach ($this->issues as $i)
+            {
+                if ($i === $issue || ($i->getTodo() == $issue->getTodo()))
+                {
+                    $found = true; 
+                }
+            }
+
+            if ($found)
+            {
+                throw new Exception('issue already exists');
+            }
+
+            $this->issues[] = $issue;
+        }
+
+        public function sortIssues()
+        {
+            usort($this->issues, array($this, 'sortI'));
+        }
+
+        public function sortI(Issue $issueA, Issue $issueB)
+        {
+            if (!empty($issueA) && !empty($issueB))
+            {
+                if ($issueA->getTodo() < $issueB->getTodo())
+                {
+                    return -1; 
+                }
+                else if ($issueA->getTodo() > $issueB->getTodo())
+                {
+                    return +1; 
+                }
+                return 0;
+            }
+            return 0;
+        }
+
         public function printIssues()
         {
-            // TODO: write issues 
+            $output = '';
+            $this->sortIssues();
+
+            for ($i = 0; $i < $this->countIssues(); $i++)
+            {
+                $issue = $this->issues[$i];
+                $output .= '(' . $i . ') ' . $issue->toString() . PHP_EOL; 
+            }
+
+            return $output;
         }
 
         // END ---------- Issues ----------------------

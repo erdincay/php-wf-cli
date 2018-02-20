@@ -8,4 +8,10 @@ workflow-based issue-management
 
 > create, add, output transitions
 
+> create, add, output issues
+
+> initialize with demo data
+
+> output current (data) status
+
 ![lgplv3](./lgplv3.png)
