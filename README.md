@@ -7,3 +7,5 @@ workflow-based issue-management
 > create, add, sort, output states
 
 > create, add, output transitions
+
+![lgplv3](./lgplv3.png)
