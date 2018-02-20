@@ -58,6 +58,12 @@
                 $outputX = $data->printTransitions(); 
                 echo $outputX . PHP_EOL;
                 break;
+            case 'signal state event':
+                break;
+            case 'signal transition event':
+                break; 
+            case 'signal issue event':
+                break;
             case 'test state add':
                 try
                 {
@@ -92,7 +98,11 @@
             case 'test issue add':
                 try
                 {
+                    $stateX = $data->createState('teststate' . rand(1,100), rand(1,100));
+                    $data->addState($stateX);
 
+                    $issue = $data->createIssue('testissue', $stateX);
+                    $data->addIssue($issue);
                 }
                 catch (Exception $e)
                 {

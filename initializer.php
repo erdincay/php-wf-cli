@@ -13,14 +13,17 @@
     $validCommands[] = 'clear data';
     $validCommands[] = 'show issues';
     $validCommands[] = 'show states';
-    $validCommands[] = 'show transitions';    
+    $validCommands[] = 'show transitions';
+    $validCommands[] = 'signal state event';
+    $validCommands[] = 'signal transition event';
+    $validCommands[] = 'signal issue event';
     $validCommands[] = 'test state add';
     $validCommands[] = 'test transition add';
     $validCommands[] = 'test issue add';
     $validCommands[] = 'exit';
 
     echo PHP_EOL;
-    echo "WELCOME TO THE DEMONSTRATIONAL WORKFLOW PROCESSING CLI CLIENT" . PHP_EOL;
+    echo "WELCOME TO THE WORKFLOW-BASED ISSUE-MANAGEMENT CLI CLIENT" . PHP_EOL;
     echo PHP_EOL;
 
     $commands = implode(" | ", $validCommands);

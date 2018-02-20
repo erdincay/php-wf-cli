@@ -2,16 +2,7 @@
 
     class Event
     {
-        private $issueID;
-        private $oldState;
-        private $newState;
-
-        public function __construct(int $issueID, State $oldState, State $newState)
-        {
-            $this->issueID = $issueID;
-            $this->oldState = $oldState;
-            $this->newState = $newState;
-        }
+        
     }
 
     class State

@@ -1,6 +1,6 @@
 # php-wf-cli
 
-workflow-based issue-management
+command-line and workflow-based issue-management tool
 
 > interactive command-line interface
 
