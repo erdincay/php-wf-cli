@@ -10,10 +10,12 @@
     $validCommands = array();
     $validCommands[] = 'init data';
     $validCommands[] = 'show data';
+    $validCommands[] = 'clear data';
     $validCommands[] = 'show issues';
     $validCommands[] = 'show states';
-    $validCommands[] = 'show transitions';
+    $validCommands[] = 'show transitions';    
     $validCommands[] = 'test state add';
+    $validCommands[] = 'test transition add';
     $validCommands[] = 'exit';
 
     echo PHP_EOL;

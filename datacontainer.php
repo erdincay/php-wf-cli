@@ -2,15 +2,15 @@
 
     class Event
     {
-        private $issueID; 
+        private $issueID;
         private $oldState;
         private $newState;
 
         public function __construct(int $issueID, State $oldState, State $newState)
         {
-            $this->issueID = $issueID; 
-            $this->oldState = $oldState; 
-            $this->newState = $newState; 
+            $this->issueID = $issueID;
+            $this->oldState = $oldState;
+            $this->newState = $newState;
         }
     }
 
@@ -43,6 +43,46 @@
         public function isValid()
         {
             return !empty($this->stateName);
+        }
+    }
+
+    class Transition
+    {
+        private $source;
+        private $destination; 
+
+        public function __construct(State $source, State $destination)
+        {
+            $this->source = $source;
+            $this->destination = $destination;             
+        }
+
+        public function getSource()
+        {
+            return $this->source;
+        }
+
+        public function getDestination()
+        {
+            return $this->destination;
+        }
+
+        public function isValid()
+        {
+            if (($this->source !== $this->destination) && ($this->source != $this->destination))
+            {
+                if (($this->source)->getStateName() != ($this->destination)->getStateName()
+                    && ($this->source)->getOrderID() != ($this->destination)->getOrderID())
+                {
+                    return true;
+                }       
+            }
+            return false;
+        }
+
+        public function toString()
+        {
+            return '' . ($this->source)->toString() . ' -> ' . ($this->destination)->toString();
         }
     }
 
@@ -80,7 +120,7 @@
             $this->transitions = array();
             $this->issues = array();
         }
-
+        
         // BEGIN -------- States ----------------------
 
         public function countStates()
@@ -116,6 +156,14 @@
 
             // TODO: orderID issue, move in between 
 
+            foreach ($this->states as &$s)
+            {
+                if ($this->compareS($state,$s))
+                {
+                    throw new Exception('state already exists');
+                }
+            }
+
             $this->states[] = $state;
         }
 
@@ -132,7 +180,7 @@
 
                 // TODO: object comparison ? 
                 if (strcmp($stateA->getStateName(), $stateB->getStateName()) == 0
-                   && ($stateA->getOrderID() == $stateB->getOrderID()))
+                    && ($stateA->getOrderID() == $stateB->getOrderID()))
                 {
                     unset($this->states[$i]);
                     break;
@@ -142,10 +190,10 @@
 
         public function sortStates()
         {
-            usort($this->states, array($this, 'sorterS'));
+            usort($this->states, array($this, 'sortS'));
         }
 
-        public function sorterS(State $stateA, State $stateB)
+        public function sortS(State $stateA, State $stateB)
         {
             if (!empty($stateA) && !empty($stateB))
             {
@@ -160,6 +208,18 @@
                 return 0;
             }
             return 0;
+        }
+
+        public function compareS(State $stateA, State $stateB)
+        {
+            if (!empty($stateA) && !empty($stateB))
+            {
+                if ($stateA->getStateName() == $stateB->getStateName())
+                {
+                    return true; 
+                }
+            }
+            return false;
         }
 
         public function printStates()
@@ -196,6 +256,88 @@
         }
 
         // END ---------- Events ----------------------
+
+        // BEGIN -------- Transitions -----------------
+
+        public function countTransitions() 
+        {
+            return count($this->transitions);
+        }
+
+        public function createTransition(State $source, State $destination)
+        {
+            if (empty($source) || empty($destination)
+                || !($source->isValid()) || !($destination->isValid()))
+            {
+                throw new Exception('transition source or destination is invalid'); 
+            }
+
+            $transition = new Transition($source, $destination);
+
+            if ($transition->isValid())
+            {
+                return $transition;
+            }
+            
+            return null;
+        }
+
+        public function addTransition(Transition $transition)
+        {
+            if (empty($transition) || !($transition->isValid()))
+            {
+                throw new Exception('transition invalid');
+            }
+
+            $this->transitions[] = $transition;
+        }
+
+        public function removeTransition(Transition $transition)
+        {
+            if (empty($transition)) 
+            {
+                throw new Exception('transition invalid');
+            }
+
+            for ($i = 0; $i < $this->countTransitions(); $i++)
+            {
+                $t = $this->transitions[$i];
+
+                if ($t === $transition || 
+                   ($t->getSource() == $transition->getSource()
+                   && $t->getDestination() == $transition->getDestination()))
+                {
+                    unset($this->transitions[$i]);
+                    break;
+                }
+            }
+        }
+
+        public function printTransitions()
+        {
+            $output = '';
+            // $this->sortTransitions();
+
+            for ($i = 0; $i < $this->countTransitions(); $i++)
+            {
+                $transition = $this->transitions[$i];
+                $output .= '(' . $i . ') ' . $transition->toString() . PHP_EOL; 
+            }
+
+            return $output;
+        }
+
+        // END ---------- Transitions -----------------
+
+        // BEGIN -------- Issues ----------------------
+
+        public function printIssues()
+        {
+            // TODO: write issues 
+        }
+
+        // END ---------- Issues ----------------------
+
     }
 
 ?>

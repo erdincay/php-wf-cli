@@ -24,6 +24,7 @@
     // TODO: upgrade to auto-loader by using psr4 auto-loading feature 
     require_once('initializer.php');
     require_once('datacontainer.php');
+    require_once('demodata.php');
 
     $data = new DataContainer();
 
@@ -34,24 +35,51 @@
         switch($line)
         {
             case 'init data':
+                initializeDataContainer($data); 
                 break;
-            case 'show':
+            case 'show data':
                 break;
-            case 'sort':
+            case 'clear data':           
+                unset($data);
+                $data = new DataContainer();
+                break; 
+            case 'show issues':
+                echo 'issues:' . PHP_EOL . PHP_EOL;
+                $outputX = ''; // $data->printIssues();
+                echo $outputX . PHP_EOL;
                 break;
-            case 'group':
+            case 'show states':
+                echo 'states:' . PHP_EOL . PHP_EOL;
+                $outputX = $data->printStates();
+                echo $outputX . PHP_EOL;
+                break;
+            case 'show transitions':
+                echo 'transitions:' . PHP_EOL . PHP_EOL;
+                $outputX = $data->printTransitions(); 
+                echo $outputX . PHP_EOL;
                 break;
             case 'test state add':
-                try 
+                try
                 {
-                    $stateX = $data->createState('teststate1', rand(1,100));
+                    $stateX = $data->createState('teststate' . rand(1,100), rand(1,100));
                     $data->addState($stateX); 
                     $outputX = $data->printStates();
                     echo $outputX . PHP_EOL; 
                 }
                 catch (Exception $e)
                 {
-                    echo 'while processing an eror occured' . PHP_EOL; 
+                    echo 'while processing an error occurred' . PHP_EOL; 
+                    echo 'see details for more information: ' . $e->getMessage() . PHP_EOL; 
+                }
+                break;
+            case 'test transition add':
+                try
+                {
+
+                }
+                catch (Exception $e)
+                {
+                    echo 'while processing an error occurred' . PHP_EOL; 
                     echo 'see details for more information: ' . $e->getMessage() . PHP_EOL; 
                 }
                 break;
@@ -60,7 +88,8 @@
                 $RUNNING = FALSE;
                 break;
             default;
-                echo "unknown command" . PHP_EOL;
+                echo 'while processing an error occurred' . PHP_EOL;
+                echo 'unknown command: ' . $line . PHP_EOL; 
                 break;
         }
 
