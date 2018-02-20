@@ -177,7 +177,7 @@
             $this->states[] = $state;
         }
 
-        public function removeState(State $stateA)
+        public function removeState(State $state)
         {
             if (empty($state) || !$state->isValid())
             {
@@ -186,12 +186,12 @@
 
             for ($i = 0; $i < $this->countStates(); $i++)
             {
-                $stateB = $this->states[$i];
+                $s = $this->states[$i];
 
                 // TODO: object comparison ? 
 
-                if (strcmp($stateA->getStateName(), $stateB->getStateName()) == 0
-                    && ($stateA->getOrderID() == $stateB->getOrderID()))
+                if (strcmp($state->getStateName(), $s->getStateName()) == 0
+                    && ($state->getOrderID() == $s->getOrderID()))
                 {
                     unset($this->states[$i]);
                     break;
